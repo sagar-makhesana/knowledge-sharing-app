@@ -1,0 +1,5 @@
+pnpm-lock.yaml
+.next
+data/knowledge.json
+playwright-report
+test-results
