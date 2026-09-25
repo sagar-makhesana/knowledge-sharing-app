@@ -6,6 +6,14 @@ import prettier from "eslint-config-prettier/flat";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true },
+      ],
+    },
+  },
   // Must come last: turns off stylistic rules that Prettier owns.
   prettier,
   globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
