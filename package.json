@@ -12,10 +12,14 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "data:reset": "node scripts/reset-data.mjs"
+    "data:reset": "node scripts/reset-data.mjs",
+    "db:seed": "node --env-file-if-exists=.env.local scripts/db-seed.mjs",
+    "db:reset": "node --env-file-if-exists=.env.local scripts/db-seed.mjs --reset",
+    "test:supabase": "vitest run --config vitest.live.config.mts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
+    "@supabase/supabase-js": "^2.117.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "geist": "^1.7.2",
