@@ -153,3 +153,19 @@ describe("seed data", () => {
     }
   });
 });
+
+describe("escaped line breaks", () => {
+  it("restores content whose line breaks were stored as \\n", async () => {
+    const markdown = '## Fix\n\n```powershell\n$pool = "IIS:\\AppPools\\X"\n```\n\n- done';
+    const escaped = JSON.stringify(markdown).slice(1, -1); // what a paste from the JSON file stores
+    expect(escaped.includes("\n")).toBe(false);
+
+    const repo = new JsonFileRepository({ filePath });
+    const created = await repo.create(makeInput());
+    const data = JSON.parse(await readFile(filePath, "utf8"));
+    data.entries[0].content = escaped;
+    await writeFile(filePath, JSON.stringify(data), "utf8");
+
+    expect((await repo.getById(created.id))?.content).toBe(markdown);
+  });
+});

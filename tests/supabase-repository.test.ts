@@ -127,3 +127,21 @@ describe("SupabaseRepository", () => {
     );
   });
 });
+
+describe("content with escaped line breaks", () => {
+  it("is repaired when read, while real content is left untouched", async () => {
+    const markdown = "## Symptom\n\nApp pool recycles.\n\n## Fix\n\nSchedule it at 03:00.";
+    const broken = row({ content: markdown.replaceAll("\n", "\\n") });
+    const fine = row({ content: 'Keep `"\\n"` as written.\nSecond line.' });
+    const { repo } = setup([broken, fine]);
+
+    expect((await repo.getById(broken.id))?.content).toBe(markdown);
+    expect((await repo.getById(fine.id))?.content).toBe(fine.content);
+  });
+
+  it("falls back to fixing only line breaks when the text isn't valid JSON", async () => {
+    const broken = row({ content: 'Say "hi"\\n\\nthen\\tleave' });
+    const { repo } = setup([broken]);
+    expect((await repo.getById(broken.id))?.content).toBe('Say "hi"\n\nthen\tleave');
+  });
+});

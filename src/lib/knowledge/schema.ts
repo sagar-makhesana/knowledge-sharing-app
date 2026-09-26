@@ -93,6 +93,23 @@ export type KnowledgeFormValues = z.input<typeof KnowledgeInputSchema>;
 export type KnowledgeInput = z.output<typeof KnowledgeInputSchema>;
 
 /**
+ * Content added outside the app (e.g. pasted from a JSON file into the Supabase table editor, or
+ * inserted with SQL) can arrive with its line breaks still escaped as the two characters `\n`.
+ * Markdown then renders as one long paragraph of plain text. Real Markdown content always has
+ * real line breaks, so content without any, but with escaped ones, is safe to unescape.
+ */
+export function unescapeLineBreaks(content: string): string {
+  if (/[\r\n]/.test(content) || !/\\n/.test(content)) return content;
+  try {
+    // Decodes every JSON escape (\n, \t, \", \\, \u…) exactly as the JSON file had them.
+    return JSON.parse(`"${content}"`) as string;
+  } catch {
+    // Not a valid JSON string (e.g. contains a bare quote): fix the line breaks at least.
+    return content.replace(/\\r\\n|\\n/g, "\n").replace(/\\t/g, "\t");
+  }
+}
+
+/**
  * A stored entry. Deliberately lenient about content rules (those are enforced on input) but
  * strict about identity and timestamps, which a future database migration depends on.
  */
@@ -100,7 +117,7 @@ export const KnowledgeEntrySchema = z.object({
   id: z.uuid(),
   title: z.string(),
   summary: z.string(),
-  content: z.string(),
+  content: z.string().transform(unescapeLineBreaks),
   category: z.enum(CATEGORY_IDS),
   tags: z.array(z.string()),
   environment: z.string().nullable(),

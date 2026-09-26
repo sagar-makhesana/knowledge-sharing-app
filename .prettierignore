@@ -3,3 +3,4 @@ pnpm-lock.yaml
 data/knowledge.json
 playwright-report
 test-results
+docs/submission/submission.html
