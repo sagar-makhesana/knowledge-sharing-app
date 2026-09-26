@@ -6,16 +6,16 @@
 <style>
   @font-face { font-family: "Geist"; src: url("../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; }
   @font-face { font-family: "Geist Mono"; src: url("../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; }
-  @page { size: A4; margin: 13mm 14mm 15mm; }
+  @page { size: A4; margin: 11mm 14mm 13mm; }
   :root {
     --fg: #17191c; --muted: #5d636b; --faint: #8a9098; --line: #e3e6ea; --soft: #f4f6f8;
     --accent: #1d63b0; --accent-soft: #e8f0fa; --mark: #fbeeb8;
   }
   * { box-sizing: border-box; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body { margin: 0; font-family: "Geist", system-ui, sans-serif; color: var(--fg); font-size: 9.2pt; line-height: 1.45; }
+  body { margin: 0; font-family: "Geist", system-ui, sans-serif; color: var(--fg); font-size: 9pt; line-height: 1.42; }
   h1, h2, h3 { letter-spacing: -0.015em; line-height: 1.2; margin: 0; }
-  h2 { font-size: 14pt; font-weight: 650; margin-bottom: 2.5mm; }
+  h2 { font-size: 13pt; font-weight: 650; margin-bottom: 2mm; }
   h3 { font-size: 10pt; font-weight: 650; margin: 0 0 1.2mm; }
   p { margin: 0 0 2mm; }
   ul, ol { margin: 0 0 2mm; padding-left: 4.5mm; }
@@ -24,9 +24,11 @@
   strong { font-weight: 620; }
   mark { background: var(--mark); border-radius: 2px; padding: 0 0.5mm; }
   .page { break-before: page; }
+  .keep { break-inside: avoid; }
+  .section.keep { margin-bottom: 5mm; }
   .kicker { font-size: 7.3pt; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2mm; }
   .muted { color: var(--muted); }
-  .section { margin-bottom: 5mm; }
+  .section { margin-bottom: 4mm; }
   .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
   .card { border: 1px solid var(--line); border-radius: 2.5mm; padding: 3mm 4mm; break-inside: avoid; }
   .accent-card { background: var(--accent-soft); border-color: #c9dbf1; }
@@ -76,7 +78,6 @@
 <!-- ============================== PAGE 1: PITCH + PROBLEM ============================== -->
 <section>
   <div class="brand">
-    <span class="logo"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><path d="M16 11.5c-1.6-1.4-3.9-2-7-2v12c3.1 0 5.4.6 7 2 1.6-1.4 3.9-2 7-2v-12c-3.1 0-5.4.6-7 2Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M16 11.5v12" stroke="#fff" stroke-width="2"/></svg></span>
     Altegra Knowledge Sharing
     <span class="muted" style="margin-left:auto;font-weight:500;font-size:8.5pt">Codefest 2026 · Theme: “Make consultant life easier”</span>
   </div>
@@ -130,15 +131,10 @@
         done in minutes instead of searching all morning.</p>
     </div>
   </div>
-
-  <figure>
-    <img src="img/home.png" style="height:84mm;object-fit:cover;object-position:top" alt="Start page with search box, filters and entries" />
-    <figcaption>The start page: one search box, filters by category and tag, and the newest shared knowledge.</figcaption>
-  </figure>
 </section>
 
 <!-- ============================== PAGE 2: THEME FIT + INNOVATION ============================== -->
-<section class="page">
+<section>
   <div class="section">
     <div class="kicker">Theme fit</div>
     <h2>How it makes consultant life easier</h2>
@@ -157,25 +153,7 @@
     </table>
   </div>
 
-  <div class="shots">
-    <figure>
-      <img src="img/search-typo.png" alt="Search for colation finds the collation entry" />
-      <figcaption><strong>Typo-tolerant search.</strong> “colation” still finds the collation fix, with the matched words highlighted.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/search-filter.png" alt="Search for app pool filtered by the iis tag" />
-      <figcaption><strong>Filters with counts.</strong> Category and tag filters; the whole search is in the URL, ready to share.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/no-results.png" alt="No results with Submit this knowledge button" />
-      <figcaption><strong>The knowledge loop.</strong> A search with no result becomes a pre-filled submission.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/submit.png" alt="Submit form with live Markdown preview" />
-      <figcaption><strong>Share in minutes.</strong> Guided template, live preview, tag suggestions, clear validation.</figcaption>
-    </figure>
-  </div>
-
+  <div class="section keep">
   <div class="kicker">Innovation</div>
   <h2>What’s different about it</h2>
   <div class="cols">
@@ -204,30 +182,21 @@
       </ul>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- ============================== PAGE 3: TECH + IMPACT + FEASIBILITY + TRY IT ============================== -->
-<section class="page">
-  <div class="section">
-    <div class="kicker">Technical execution</div>
+<section>
+  <div class="section keep">
+    <div class="kicker" style="margin-top:4mm">Technical execution</div>
     <h2>Built properly, deployed and running</h2>
-    <div class="arch">
-      <div class="box"><b>Browser</b>Laptop, projector or phone; light and dark mode</div>
-      <div class="arrow">→</div>
-      <div class="box main"><b>Next.js 16 on Vercel</b>Server-rendered pages, Server Actions,
-        Zod validation, MiniSearch index, safe Markdown rendering</div>
-      <div class="arrow">→</div>
-      <div class="stack">
-        <div class="box"><b>Supabase Postgres</b>Production</div>
-        <div class="box"><b>JSON file</b>Offline fallback</div>
-      </div>
-    </div>
     <table>
-      <tr><td style="width:22%">Architecture</td><td>All code uses one <code>KnowledgeRepository</code>
-        interface; Supabase and a JSON file are interchangeable implementations. UUIDs and ISO
-        timestamps keep data portable.</td></tr>
+      <tr><td style="width:22%">Architecture</td><td>Next.js 16 on Vercel: server-rendered pages,
+        Server Actions for saving, and a MiniSearch index, backed by Supabase Postgres. All code uses one
+        <code>KnowledgeRepository</code> interface, so Supabase and an offline JSON file are
+        interchangeable. UUIDs and ISO timestamps keep data portable.</td></tr>
       <tr><td>Correctness</td><td>Strict TypeScript. One Zod schema validates in the browser and again on
-        the server. Automated tests cover storage, search ranking and server actions.</td></tr>
+        the server. 50 automated tests cover storage, search ranking and server actions.</td></tr>
       <tr><td>Security</td><td>The database key is only used on the server, Row Level Security blocks
         direct access, and user Markdown is rendered without raw HTML.</td></tr>
       <tr><td>Accessibility</td><td>Labelled inputs, keyboard use (<code>/</code> to search), visible
@@ -235,12 +204,6 @@
       <tr><td>Stack</td><td>Next.js 16, React 19, TypeScript, Tailwind CSS 4, shadcn/ui, Zod 4,
         MiniSearch, Supabase, Vitest.</td></tr>
     </table>
-    <div class="tiles">
-      <div class="tile"><b>50</b><span>automated tests, all passing</span></div>
-      <div class="tile"><b>2</b><span>storage backends, one interface</span></div>
-      <div class="tile"><b>0</b><span>logins or installs needed</span></div>
-      <div class="tile"><b>18</b><span>realistic PLM entries, 8 categories</span></div>
-    </div>
   </div>
 
   <div class="cols section">
@@ -261,7 +224,7 @@
       <h2>Live today, ready to roll out</h2>
       <ul>
         <li><strong>Running in production</strong> on Vercel with Supabase: no new servers,
-          licences or IT project.</li>
+          licences or IT project. 18 realistic entries across 8 categories are already in.</li>
         <li><strong>Adoption plan:</strong> seed the top 20 recurring issues, add “write it down” to
           the Definition of Done, share search links in Teams.</li>
         <li><strong>Next:</strong> company sign-in (Entra ID), similar entries and duplicate
