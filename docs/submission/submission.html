@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Altegra Knowledge Sharing · Codefest 2026</title>
+    <style>
+      @font-face {
+        font-family: "Geist";
+        src: url("../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2")
+          format("woff2");
+        font-weight: 100 900;
+      }
+      @font-face {
+        font-family: "Geist Mono";
+        src: url("../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2")
+          format("woff2");
+        font-weight: 100 900;
+      }
+      @page {
+        size: A4;
+        margin: 16mm 16mm 18mm;
+      }
+      :root {
+        --fg: #17191c;
+        --muted: #5d636b;
+        --faint: #8a9098;
+        --line: #e3e6ea;
+        --soft: #f4f6f8;
+        --accent: #1d63b0;
+        --accent-soft: #e8f0fa;
+        --mark: #fbeeb8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      body {
+        margin: 0;
+        font-family: "Geist", system-ui, sans-serif;
+        color: var(--fg);
+        font-size: 10pt;
+        line-height: 1.5;
+      }
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+        margin: 0;
+      }
+      h2 {
+        font-size: 18pt;
+        font-weight: 650;
+        margin-bottom: 4mm;
+      }
+      h3 {
+        font-size: 11.5pt;
+        font-weight: 650;
+        margin: 5mm 0 1.5mm;
+      }
+      p {
+        margin: 0 0 2.5mm;
+      }
+      ul,
+      ol {
+        margin: 0 0 2.5mm;
+        padding-left: 5mm;
+      }
+      li {
+        margin-bottom: 1.2mm;
+      }
+      code {
+        font-family: "Geist Mono", monospace;
+        font-size: 0.88em;
+        background: var(--soft);
+        border-radius: 3px;
+        padding: 0.3mm 1mm;
+      }
+      strong {
+        font-weight: 620;
+      }
+      .page {
+        break-before: page;
+      }
+      .kicker {
+        font-size: 8pt;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 2mm;
+      }
+      .lead {
+        font-size: 11.5pt;
+        color: var(--muted);
+        margin-bottom: 5mm;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .small {
+        font-size: 8.5pt;
+      }
+
+      /* Cover */
+      .cover {
+        display: flex;
+        flex-direction: column;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 3mm;
+        font-weight: 600;
+        font-size: 11pt;
+      }
+      .logo {
+        width: 9mm;
+        height: 9mm;
+        border-radius: 2mm;
+        background: var(--accent);
+        display: grid;
+        place-items: center;
+      }
+      .cover h1 {
+        font-size: 30pt;
+        font-weight: 700;
+        margin: 9mm 0 3mm;
+      }
+      .cover .tagline {
+        font-size: 15pt;
+        font-weight: 550;
+        color: var(--accent);
+        margin-bottom: 4mm;
+      }
+      .cover .intro {
+        font-size: 11.5pt;
+        color: var(--muted);
+        max-width: 160mm;
+      }
+      .facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2mm 8mm;
+        margin: 6mm 0;
+        padding: 4mm 5mm;
+        background: var(--soft);
+        border-radius: 3mm;
+        font-size: 9.5pt;
+      }
+      .facts dt {
+        color: var(--faint);
+        font-size: 7.5pt;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .facts dd {
+        margin: 0 0 1mm;
+        font-weight: 550;
+      }
+      .placeholder {
+        color: #b42318;
+        background: #fde8e7;
+        border-radius: 2px;
+        padding: 0 1mm;
+      }
+      .pills {
+        display: flex;
+        gap: 3mm;
+        margin-top: 2mm;
+      }
+      .pill {
+        flex: 1;
+        border: 1px solid var(--line);
+        border-radius: 3mm;
+        padding: 3mm 4mm;
+      }
+      .pill b {
+        display: block;
+        font-size: 11pt;
+        color: var(--accent);
+      }
+      .pill span {
+        font-size: 8.5pt;
+        color: var(--muted);
+      }
+
+      /* Figures */
+      figure {
+        margin: 0 0 4mm;
+        break-inside: avoid;
+      }
+      figure img {
+        width: 100%;
+        display: block;
+        border: 1px solid var(--line);
+        border-radius: 2mm;
+      }
+      figcaption {
+        font-size: 8.5pt;
+        color: var(--muted);
+        margin-top: 1.5mm;
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5mm;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7mm;
+      }
+
+      /* Cards and tables */
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 3mm;
+        padding: 4mm 5mm;
+        break-inside: avoid;
+      }
+      .card h3 {
+        margin-top: 0;
+      }
+      .accent-card {
+        background: var(--accent-soft);
+        border-color: #c9dbf1;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9pt;
+        margin-bottom: 3mm;
+        break-inside: avoid;
+      }
+      th,
+      td {
+        text-align: left;
+        vertical-align: top;
+        padding: 2mm 2.5mm;
+        border-bottom: 1px solid var(--line);
+      }
+      th {
+        font-size: 7.5pt;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--faint);
+        font-weight: 600;
+      }
+      td:first-child {
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .timeline {
+        border-left: 2px solid var(--accent);
+        margin: 2mm 0 4mm 1mm;
+        padding-left: 5mm;
+      }
+      .timeline .t {
+        position: relative;
+        margin-bottom: 4mm;
+      }
+      .timeline .t::before {
+        content: "";
+        position: absolute;
+        left: -6.6mm;
+        top: 1.2mm;
+        width: 2.6mm;
+        height: 2.6mm;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .time {
+        font-family: "Geist Mono", monospace;
+        font-size: 8.5pt;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      mark {
+        background: var(--mark);
+        border-radius: 2px;
+        padding: 0 0.5mm;
+      }
+
+      /* Architecture */
+      .arch {
+        display: grid;
+        grid-template-columns: 1fr 12mm 1.35fr 12mm 1fr;
+        align-items: center;
+        margin: 3mm 0 5mm;
+      }
+      .box {
+        border: 1px solid var(--line);
+        border-radius: 2.5mm;
+        padding: 3mm;
+        font-size: 8.5pt;
+        background: #fff;
+      }
+      .box b {
+        display: block;
+        font-size: 9.5pt;
+        margin-bottom: 1mm;
+      }
+      .box.main {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+      .arrow {
+        text-align: center;
+        color: var(--faint);
+        font-size: 14pt;
+      }
+      .stack {
+        display: grid;
+        gap: 2mm;
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3mm;
+        margin: 5mm 0;
+      }
+      .tile {
+        border: 1px solid var(--line);
+        border-radius: 3mm;
+        padding: 3.5mm 4mm;
+      }
+      .tile b {
+        display: block;
+        font-size: 18pt;
+        font-weight: 650;
+        color: var(--accent);
+        line-height: 1.1;
+      }
+      .tile span {
+        font-size: 8.5pt;
+        color: var(--muted);
+      }
+      .steps {
+        counter-reset: s;
+        list-style: none;
+        padding: 0;
+      }
+      .steps li {
+        counter-increment: s;
+        position: relative;
+        padding-left: 9mm;
+        margin-bottom: 3mm;
+      }
+      .steps li::before {
+        content: counter(s);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 6mm;
+        height: 6mm;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        font-size: 8.5pt;
+        font-weight: 650;
+        display: grid;
+        place-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============================== COVER ============================== -->
+    <section class="cover">
+      <div class="brand">
+        <span class="logo"
+          ><svg width="18" height="18" viewBox="0 0 32 32" fill="none">
+            <path
+              d="M16 11.5c-1.6-1.4-3.9-2-7-2v12c3.1 0 5.4.6 7 2 1.6-1.4 3.9-2 7-2v-12c-3.1 0-5.4.6-7 2Z"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linejoin="round"
+            />
+            <path d="M16 11.5v12" stroke="#fff" stroke-width="2" /></svg
+        ></span>
+        Altegra Knowledge Sharing
+        <span class="muted" style="margin-left: auto; font-weight: 500; font-size: 9pt"
+          >Codefest 2026 · Theme: “Make consultant life easier”</span
+        >
+      </div>
+
+      <h1>Altegra Knowledge Sharing</h1>
+      <div class="tagline">Stop solving the same problem twice.</div>
+      <p class="intro">
+        A searchable knowledge base where consultants share the fixes, how-tos and lessons learned
+        from their customer work, and find a colleague’s answer in seconds instead of rediscovering
+        it over an afternoon.
+      </p>
+
+      <dl class="facts">
+        <div>
+          <dt>Live app</dt>
+          <dd>{{APP_URL}}</dd>
+        </div>
+        <div>
+          <dt>Team</dt>
+          <dd>{{TEAM}}</dd>
+        </div>
+        <div>
+          <dt>Built with</dt>
+          <dd>Next.js 16 · TypeScript · Supabase (Postgres) · MiniSearch</dd>
+        </div>
+        <div>
+          <dt>Access</dt>
+          <dd>Public, no login needed. Works on laptop, projector and phone</dd>
+        </div>
+      </dl>
+
+      <figure style="margin-bottom: 4mm">
+        <img
+          src="img/home.png"
+          style="height: 112mm; object-fit: cover; object-position: top"
+          alt="Start page of Altegra Knowledge Sharing with the search box, filters and entries"
+        />
+        <figcaption>
+          The start page: one search box, filters by category and tag, and the newest shared
+          knowledge.
+        </figcaption>
+      </figure>
+
+      <div class="pills">
+        <div class="pill">
+          <b>Find in seconds</b><span>Search as you type, typos forgiven, matches highlighted</span>
+        </div>
+        <div class="pill">
+          <b>Share in minutes</b><span>Guided template, Markdown and code, no account</span>
+        </div>
+        <div class="pill">
+          <b>Nothing lost</b><span>Every failed search becomes the next entry</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PROBLEM ============================== -->
+    <section class="page">
+      <div class="kicker">The problem</div>
+      <h2>The answer usually exists. Finding it is the hard part.</h2>
+      <p class="lead">
+        Altegra consultants work on the same platforms at many customers: Aras Innovator,
+        Teamcenter, SQL Server, IIS and the integrations around them. So the same problems keep
+        coming back.
+      </p>
+      <div class="cols">
+        <div>
+          <h3>What happens today</h3>
+          <ul>
+            <li>
+              A server Method breaks after an upgrade, an app pool recycles in the middle of the
+              day, a database restore causes a collation conflict. Someone at Altegra has fixed it
+              before.
+            </li>
+            <li>
+              That fix lives in a colleague’s head, an old Teams chat, a customer-specific wiki or a
+              personal notes file. None of these can be searched by <em>symptom</em>.
+            </li>
+            <li>
+              So the consultant either interrupts colleagues or solves it again from scratch, often
+              while the customer waits.
+            </li>
+            <li>
+              When people change projects or leave, their hard-won knowledge leaves with them.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>Why existing tools don’t solve it</h3>
+          <ul>
+            <li><strong>Chat and email</strong> are organised by conversation, not by problem.</li>
+            <li>
+              <strong>Customer wikis</strong> are silos. A fix found at customer A never reaches the
+              team at customer B.
+            </li>
+            <li>
+              <strong>Writing documentation feels like admin</strong>, so it doesn’t happen unless
+              it takes almost no effort.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card accent-card" style="margin-top: 4mm">
+        <h3>Our answer: one place, built around two moments in a consultant’s day</h3>
+        <ol style="margin-bottom: 1mm">
+          <li>
+            <strong>“I’m stuck.”</strong> Type the error or symptom and get ranked answers with the
+            matching words highlighted, even with a typo.
+          </li>
+          <li>
+            <strong>“I just fixed it.”</strong> Share it in a few minutes with a guided template,
+            Markdown and code blocks, without creating an account.
+          </li>
+        </ol>
+        <p style="margin: 0">
+          And we connect the two: a search that finds nothing offers
+          <strong>Submit this knowledge</strong>, with the title already filled in from the search,
+          so every gap in the knowledge base becomes its next entry.
+        </p>
+      </div>
+
+      <h3 style="margin-top: 7mm">A day with the app</h3>
+      <div class="timeline">
+        <div class="t">
+          <span class="time">09:10</span>
+          <p>
+            Priya restores a customer database on a new SQL Server and the reports fail with a
+            collation error. She types <code>colation conflict</code>, with a typo. The first result
+            shows the exact error message, the root cause and the T-SQL fix, written by a colleague
+            months ago. She is done in minutes instead of searching all morning.
+          </p>
+        </div>
+        <div class="t">
+          <span class="time">14:30</span>
+          <p>
+            Tom runs into a Kerberos delegation problem that nobody has documented. The search finds
+            nothing, so he clicks <strong>Submit this knowledge</strong>. The title is already
+            filled in, the template gives him Problem / Root cause / Fix headings, and the entry is
+            shared a few minutes later. Tomorrow it’s the first result for everyone else.
+          </p>
+        </div>
+        <div class="t">
+          <span class="time">16:05</span>
+          <p>
+            A project lead pastes <code>…/?q=app pool&amp;tags=iis</code> into a Teams chat. Every
+            search and filter is part of the link, so the recipient sees exactly the same results.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== THEME FIT + FEATURES ============================== -->
+    <section class="page">
+      <div class="kicker">Theme fit</div>
+      <h2>How it makes consultant life easier</h2>
+      <table>
+        <tr>
+          <th style="width: 26%">Theme promise</th>
+          <th>What the app does</th>
+        </tr>
+        <tr>
+          <td>Faster answers</td>
+          <td>
+            Search as you type across title, summary, content and tags. Typos are tolerated and the
+            matched words are highlighted, so you see <em>why</em> a result matches. Filter by
+            category and tag, sort by relevance or newest.
+          </td>
+        </tr>
+        <tr>
+          <td>Less admin</td>
+          <td>
+            No login and no training. A guided template, live Markdown preview, tag autocomplete
+            from existing tags and a remembered author name make sharing a fix take minutes, not a
+            documentation session.
+          </td>
+        </tr>
+        <tr>
+          <td>Smoother client work</td>
+          <td>
+            Each entry records the environment and version (e.g. “Aras 39, SQL Server 2022”). Code
+            blocks are syntax-highlighted with a copy button, so a fix can be applied at the
+            customer straight away.
+          </td>
+        </tr>
+        <tr>
+          <td>Knowledge that stays</td>
+          <td>
+            Fixes found at one customer help the team at the next. What people learn stays in the
+            team when they change projects.
+          </td>
+        </tr>
+      </table>
+
+      <div class="grid2" style="margin-top: 4mm">
+        <figure>
+          <img
+            src="img/search-typo.png"
+            alt="Search for 'colation' finds the collation conflict entry"
+          />
+          <figcaption>
+            <strong>Typo-tolerant search.</strong> “colation” still finds the collation entry, with
+            the matched words highlighted.
+          </figcaption>
+        </figure>
+        <figure>
+          <img src="img/search-filter.png" alt="Search for app pool filtered by the iis tag" />
+          <figcaption>
+            <strong>Filters with counts.</strong> Category and tag filters show how many results
+            each choice gives. The whole state is in the URL, so it can be shared.
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="img/no-results.png"
+            alt="No results state with a Submit this knowledge button"
+          />
+          <figcaption>
+            <strong>The knowledge loop.</strong> A search with no results becomes a pre-filled
+            submission.
+          </figcaption>
+        </figure>
+        <figure>
+          <img src="img/submit.png" alt="Submit form with live Markdown preview" />
+          <figcaption>
+            <strong>Sharing in minutes.</strong> Template, live preview, tag autocomplete and field
+            validation with clear messages.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================== INNOVATION + TECH ============================== -->
+    <section class="page">
+      <div class="kicker">Innovation</div>
+      <h2>What’s different about it</h2>
+      <div class="cols">
+        <div>
+          <h3>Search tuned for technical text</h3>
+          <p>Built on MiniSearch, but tuned for how consultants search:</p>
+          <ul>
+            <li>Title and tags weigh more than body text.</li>
+            <li>Prefix matching while typing (<code>recycl</code> finds “recycling”).</li>
+            <li>Typo tolerance only on longer words, so <code>lock</code> doesn’t match “look”.</li>
+            <li>Filler words are ignored, so “how to fix the collation” works.</li>
+            <li>
+              All words must match. If nothing does, the app shows partial matches and says so.
+            </li>
+          </ul>
+          <p>We highlight exactly the words the index matched, including tags.</p>
+        </div>
+        <div>
+          <h3>Designed to be used, not just filled in</h3>
+          <ul>
+            <li>
+              <strong>The knowledge loop.</strong> Failed searches turn into pre-filled submissions,
+              so the knowledge base grows where people actually need it.
+            </li>
+            <li>
+              <strong>Zero-friction sharing.</strong> No account, a guided template, and tag
+              suggestions that keep the vocabulary consistent.
+            </li>
+            <li><strong>Shareable searches.</strong> Every query, filter and sort is a link.</li>
+            <li>
+              <strong>Always current, no search server.</strong> The index is rebuilt automatically
+              when the data changes, even across serverless instances.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <figure style="margin-top: 5mm">
+        <img
+          src="img/entry.png"
+          alt="Entry detail with syntax-highlighted PowerShell and a copy button"
+        />
+        <figcaption>
+          <strong>An entry.</strong> Structured Markdown with syntax-highlighted code and a copy
+          button, ready to apply at the customer.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============================== TECH ============================== -->
+    <section class="page">
+      <div class="kicker">Technical execution</div>
+      <h2>Built properly, deployed and running</h2>
+      <div class="arch">
+        <div class="box"><b>Browser</b>Laptop, projector or phone. Light and dark mode.</div>
+        <div class="arrow">→</div>
+        <div class="box main">
+          <b>Next.js 16 on Vercel</b>Server-rendered pages, Server Actions for create/update, Zod
+          validation, MiniSearch index, Markdown rendering
+        </div>
+        <div class="arrow">→</div>
+        <div class="stack">
+          <div class="box"><b>Supabase Postgres</b>Production storage</div>
+          <div class="box"><b>JSON file</b>Offline / demo fallback</div>
+        </div>
+      </div>
+      <table>
+        <tr>
+          <th style="width: 24%">Area</th>
+          <th>How it’s done</th>
+        </tr>
+        <tr>
+          <td>Architecture</td>
+          <td>
+            All code talks to one <code>KnowledgeRepository</code> interface. Supabase and a local
+            JSON file are two implementations, and switching is one setting. Stable UUIDs and ISO
+            timestamps keep the data portable.
+          </td>
+        </tr>
+        <tr>
+          <td>Correctness</td>
+          <td>
+            TypeScript in strict mode. One Zod schema validates the form in the browser and again on
+            the server. 50 automated tests cover storage, search ranking, server actions and the
+            Supabase client (against a simulated API).
+          </td>
+        </tr>
+        <tr>
+          <td>Security</td>
+          <td>
+            The database key is only used on the server. Row Level Security blocks direct browser
+            access. User Markdown is rendered without raw HTML, so it can’t inject scripts.
+          </td>
+        </tr>
+        <tr>
+          <td>Accessibility</td>
+          <td>
+            Labelled inputs, full keyboard use (press <code>/</code> to search), visible focus,
+            screen-reader announcements for result counts, a skip link, and layouts that work on
+            phones and projectors.
+          </td>
+        </tr>
+        <tr>
+          <td>Stack</td>
+          <td>
+            Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, shadcn/ui,
+            react-hook-form, Zod 4, MiniSearch, react-markdown, Supabase, Vitest, ESLint, Prettier.
+          </td>
+        </tr>
+      </table>
+
+      <div class="tiles">
+        <div class="tile"><b>50</b><span>automated tests, all passing</span></div>
+        <div class="tile"><b>2</b><span>storage backends behind one interface</span></div>
+        <div class="tile"><b>0</b><span>logins or installs needed to use it</span></div>
+        <div class="tile"><b>18</b><span>realistic PLM entries in 8 categories</span></div>
+      </div>
+
+      <div class="cols">
+        <div>
+          <h3 style="margin-top: 0">How every change was checked</h3>
+          <ul>
+            <li>Linting, strict type checking and formatting checks.</li>
+            <li>Unit tests for storage, search ranking and server-side validation.</li>
+            <li>
+              A production build, then a scripted browser run-through of the real app (search,
+              filters, submit, preview, save) at desktop and phone width, in light and dark mode.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="margin-top: 0">Built for real use</h3>
+          <ul>
+            <li>Loading, error, empty and no-results states on every page.</li>
+            <li>Clear validation messages next to each field, checked again on the server.</li>
+            <li>
+              Results stay on screen while a new search loads, so nothing flickers while typing.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== IMPACT + FEASIBILITY ============================== -->
+    <section class="page">
+      <div class="kicker">Impact for consultants</div>
+      <h2>Every reuse saves the time the first person already spent</h2>
+      <div class="cols">
+        <div>
+          <p>
+            When a consultant finds a documented fix instead of rediscovering it, the saving is the
+            diagnosis time: often half an hour to several hours for issues like the ones in the app
+            today.
+          </p>
+          <table>
+            <tr>
+              <th colspan="2">Illustrative estimate (assumptions, not measured)</th>
+            </tr>
+            <tr>
+              <td>Team size</td>
+              <td>20 consultants</td>
+            </tr>
+            <tr>
+              <td>Reused fixes</td>
+              <td>1 per consultant per week</td>
+            </tr>
+            <tr>
+              <td>Time saved each</td>
+              <td>45 minutes</td>
+            </tr>
+            <tr>
+              <td>Result</td>
+              <td>
+                <strong>≈ 15 hours per week</strong>, about two working days, back for customer work
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <h3>Beyond saved hours</h3>
+          <ul>
+            <li>
+              <strong>Faster onboarding:</strong> new consultants search years of team experience
+              from day one.
+            </li>
+            <li>
+              <strong>Consistent quality:</strong> the same proven fix is applied at every customer.
+            </li>
+            <li>
+              <strong>Happier customers:</strong> issues are resolved while they wait, not the next
+              day.
+            </li>
+            <li>
+              <strong>Fewer interruptions:</strong> senior colleagues answer a question once, in
+              writing.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="kicker" style="margin-top: 6mm">Feasibility</div>
+      <h2>Live today, ready to roll out</h2>
+      <div class="cols">
+        <div>
+          <ul>
+            <li>
+              <strong>Running in production</strong> on Vercel with a Supabase Postgres database. It
+              needs no new servers, licences or IT project to start.
+            </li>
+            <li>
+              <strong>18 realistic entries</strong> are already in, across 8 categories: Aras,
+              Teamcenter, SQL Server, IIS, integration, upgrades, process and more.
+            </li>
+            <li>
+              <strong>Simple to operate:</strong> one command loads or resets the demo data, and the
+              setup is documented in the README.
+            </li>
+            <li>
+              <strong>Built to grow:</strong> the storage layer is swappable, and full-text search
+              stays fast into the thousands of entries.
+            </li>
+          </ul>
+          <h3>Adoption plan</h3>
+          <ol>
+            <li>Seed the 20 most common recurring issues from the team.</li>
+            <li>Add “write it down” to the Definition of Done for support tickets.</li>
+            <li>Share search links in Teams instead of retyping answers.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>Roadmap</h3>
+          <ul style="margin: 0">
+            <li>
+              <strong>Company sign-in</strong> (Microsoft Entra ID) and edit history, before storing
+              customer-sensitive details.
+            </li>
+            <li>
+              <strong>“Similar entries”</strong> on each entry, and a duplicate warning while
+              writing.
+            </li>
+            <li>
+              <strong>Knowledge-gap report:</strong> the most frequent searches with no results.
+            </li>
+            <li><strong>Teams integration:</strong> search and share without leaving the chat.</li>
+            <li>
+              <strong>AI-assisted search</strong> (semantic matching, summaries) on top of the same
+              repository, with sources always linked.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== TRY IT ============================== -->
+    <section class="page">
+      <div class="kicker">Presentation</div>
+      <h2>Try it in two minutes</h2>
+      <div class="cols" style="grid-template-columns: 1.6fr 1fr; align-items: start">
+        <div>
+          <ol class="steps">
+            <li>
+              <strong>Open the app:</strong> {{APP_URL}}. The start page explains what it is and
+              lists the shared knowledge, newest first.
+            </li>
+            <li>
+              <strong>Search with a typo:</strong> type <code>colation</code>. The SQL Server
+              collation entry comes first, with <mark>collation</mark> highlighted.
+            </li>
+            <li>
+              <strong>Narrow it down:</strong> search <code>app pool</code>, then click the tag
+              <code>#iis</code>. The URL now holds the search; copy it and open it in a new tab.
+            </li>
+            <li>
+              <strong>Open a result</strong> to see the full fix with highlighted PowerShell and a
+              copy-code button.
+            </li>
+            <li>
+              <strong>Hit a gap:</strong> search <code>kerberos delegation</code>. Nothing is found,
+              so click <strong>Submit this knowledge</strong>. The title is already filled in.
+            </li>
+            <li>
+              <strong>Share it:</strong> click <em>Insert template</em>, choose a category, add
+              tags, check <em>Preview</em> and click <strong>Share knowledge</strong>. A
+              confirmation appears, the entry opens, and the search finds it straight away.
+            </li>
+            <li>
+              <strong>Try it anywhere:</strong> switch to dark mode, or open it on your phone.
+            </li>
+          </ol>
+        </div>
+        <figure>
+          <img
+            src="img/mobile.png"
+            alt="The app on a phone in dark mode"
+            style="border-radius: 4mm"
+          />
+          <figcaption>The same app on a phone, in dark mode.</figcaption>
+        </figure>
+      </div>
+
+      <div class="card accent-card" style="margin-top: 4mm">
+        <h3>In one sentence</h3>
+        <p style="margin: 0; font-size: 11pt">
+          Altegra Knowledge Sharing turns what one consultant has already solved into a searchable
+          answer for all of them, so the team spends its time on customers instead of on problems it
+          has solved before.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>

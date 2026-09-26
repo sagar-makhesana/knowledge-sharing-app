@@ -15,7 +15,8 @@
     "data:reset": "node scripts/reset-data.mjs",
     "db:seed": "node --env-file-if-exists=.env.local scripts/db-seed.mjs",
     "db:reset": "node --env-file-if-exists=.env.local scripts/db-seed.mjs --reset",
-    "test:supabase": "vitest run --config vitest.live.config.mts"
+    "test:supabase": "vitest run --config vitest.live.config.mts",
+    "submission:pdf": "node docs/submission/build-pdf.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
