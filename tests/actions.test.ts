@@ -10,10 +10,12 @@ let dir: string;
 
 beforeAll(async () => {
   dir = await mkdtemp(path.join(tmpdir(), "knowledge-actions-"));
+  process.env.KNOWLEDGE_STORAGE = "json";
   process.env.KNOWLEDGE_DATA_FILE = path.join(dir, "knowledge.json");
 });
 
 afterAll(async () => {
+  delete process.env.KNOWLEDGE_STORAGE;
   delete process.env.KNOWLEDGE_DATA_FILE;
   await rm(dir, { recursive: true, force: true });
 });
