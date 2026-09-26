@@ -37,6 +37,25 @@ Open http://localhost:3000. On first start, `data/knowledge.json` is created fro
 | `pnpm db:reset`      | Delete all Supabase entries, then insert the seed entries          |
 | `pnpm data:reset`    | JSON storage: replace `data/knowledge.json` with the seed data     |
 
+## Search
+
+Search runs on the server with [MiniSearch](https://lucaong.github.io/minisearch/), an in-memory
+full-text index (`src/lib/knowledge/search.ts`):
+
+- Fields and boosts: title ×3, tags ×2.5, summary ×1.5, content ×1 (Markdown stripped).
+- Prefix matching for search-as-you-type (`recyc` finds "recycling") and typo tolerance on words
+  of 5+ letters (`colation` finds "collation"). Common stop words are ignored.
+- All query words must match; if nothing matches all of them, results matching any word are
+  shown with a notice.
+- Filters: category and tags (all selected tags must match), sort by relevance or newest. Filter
+  counts show how many results each choice would give.
+- State lives in the URL (`/?q=collation&category=sql-server&tags=tempdb&sort=newest`), so any
+  search can be shared as a link. Press `/` to jump to the search box.
+
+The index is built from the repository and cached per server instance. It is rebuilt whenever
+the stored entries change (checked on every search), so results are always current, including
+on Vercel, where each serverless instance has its own memory.
+
 ## Storage
 
 All code goes through the `KnowledgeRepository` interface (`src/lib/knowledge/repository.ts`).

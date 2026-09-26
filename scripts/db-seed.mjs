@@ -52,4 +52,3 @@ const { error } = await supabase.from(TABLE).upsert(rows, { onConflict: "id" });
 if (error) fail("load the seed data", error);
 
 console.log(`${reset ? "Inserted" : "Upserted"} ${rows.length} seed entries into ${TABLE}.`);
-console.log("If the dev server is running, restart it so search picks up the change.");

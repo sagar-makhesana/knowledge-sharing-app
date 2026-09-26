@@ -59,9 +59,16 @@ Anything a colleague should watch out for.
 type KnowledgeFormProps = {
   /** Existing tags offered as autocomplete suggestions. */
   tagSuggestions: readonly string[];
-} & ({ mode: "create"; entry?: never } | { mode: "edit"; entry: KnowledgeEntry });
+} & (
+  | {
+      mode: "create";
+      entry?: never;
+      /** Prefills the title, e.g. from a search. */ initialTitle?: string;
+    }
+  | { mode: "edit"; entry: KnowledgeEntry; initialTitle?: never }
+);
 
-export function KnowledgeForm({ mode, entry, tagSuggestions }: KnowledgeFormProps) {
+export function KnowledgeForm({ mode, entry, initialTitle, tagSuggestions }: KnowledgeFormProps) {
   const router = useRouter();
   const [isNavigating, startNavigation] = useTransition();
 
@@ -78,7 +85,14 @@ export function KnowledgeForm({ mode, entry, tagSuggestions }: KnowledgeFormProp
           environment: entry.environment ?? "",
           author: entry.author ?? "",
         }
-      : { title: "", summary: "", content: "", tags: [], environment: "", author: "" },
+      : {
+          title: initialTitle ?? "",
+          summary: "",
+          content: "",
+          tags: [],
+          environment: "",
+          author: "",
+        },
   });
   const { register, control, formState, setError, setValue, getValues } = form;
   const { errors, isSubmitting } = formState;

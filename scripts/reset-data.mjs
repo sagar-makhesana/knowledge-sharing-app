@@ -16,4 +16,3 @@ await copyFile(seedPath, tempPath);
 await rename(tempPath, target);
 
 console.log(`Reset ${path.relative(root, target)} from data/seed.json.`);
-console.log("If the dev server is running, restart it so search picks up the change.");
